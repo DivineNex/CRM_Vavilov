@@ -19,9 +19,9 @@ namespace Server
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindowView : MetroWindow
     {
-        public MainWindow()
+        public MainWindowView()
         {
             InitializeComponent();
         }
