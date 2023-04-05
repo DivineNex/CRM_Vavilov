@@ -5,7 +5,7 @@ namespace Server.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        public ConnectionService ConnectionService { get; private set; }
+        public ConnectionService ConnectionService { get; private set; } 
 
         public StartServerCommand StartServerCommand { get; private set; }
 

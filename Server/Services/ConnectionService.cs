@@ -40,7 +40,7 @@ namespace Server.Services
         private static void ListeningThread()
         {
             _listenSocket.Bind(_ipPoint);
-            MessageBox.Show("Сервер запущен. Ожидание подключений");
+            LoggingService.AddMessage("Сервер запущен. Ожидание подключений");
 
             while (true)
             {
@@ -50,7 +50,7 @@ namespace Server.Services
 
                     Socket handler = _listenSocket.Accept();
 
-                    MessageBox.Show($"Клиент {handler.RemoteEndPoint} подключен");
+                    LoggingService.AddMessage($"Клиент {handler.RemoteEndPoint} подключен");
 
                     Client newClient = new Client();
                     newClient.Port = int.Parse(handler.RemoteEndPoint.ToString());
@@ -63,7 +63,7 @@ namespace Server.Services
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    LoggingService.AddMessage(ex.Message);
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace Server.Services
                 }
                 catch
                 {
-                    MessageBox.Show($"Клиент {client.Port} отключен");
+                    LoggingService.AddMessage($"Клиент {client.Port} отключен");
                     handler.Close();
                     Clients.Remove(client);
                     break;
