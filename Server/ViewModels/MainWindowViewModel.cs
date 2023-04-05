@@ -1,7 +1,6 @@
 ﻿using Server.Commands;
 using Server.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Server.ViewModels
 {
@@ -11,7 +10,7 @@ namespace Server.ViewModels
 
         public StartServerCommand StartServerCommand { get; private set; }
 
-        public List<string> LoggerMessages { get; private set; }
+        public List<string>? LoggerMessages { get; private set; }
 
         public MainWindowViewModel()
         {
