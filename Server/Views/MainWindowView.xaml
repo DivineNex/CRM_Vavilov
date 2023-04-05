@@ -62,7 +62,7 @@
                 
             </GroupBox>
             <GroupBox Grid.Column="1" Header="Logs">
-                
+                <ListBox ItemsSource="{Binding LoggerMessages, UpdateSourceTrigger=PropertyChanged}"/>
             </GroupBox>
         </Grid>
     </Grid>
