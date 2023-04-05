@@ -11,30 +11,30 @@ namespace Server.Services
 {
     internal class ConnectionService
     {
-
-
         private static Thread _listeningThread;
         private static Socket _listenSocket;
         private static IPEndPoint _ipPoint;
 
+        public bool Active { get; private set; }
         public static string IP { get; private set; }
         public static int Port { get; private set; }
         public static ObservableCollection<Client> Clients { get; private set; }
 
-        public ConnectionService()
+        public ConnectionService(string ip, int port)
         {
+            IP = ip;
+            Port = port;
+
             _ipPoint = new IPEndPoint(IPAddress.Parse(IP), Port);
             _listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Clients = new ObservableCollection<Client>();
         }
 
-        public void StartServer(string ip, int port)
+        public void StartServer()
         {
-            IP = ip;
-            Port = port;
-
             _listeningThread = new Thread(() => ListeningThread());
             _listeningThread.Start();
+            Active = true;
         }
 
         private static void ListeningThread()

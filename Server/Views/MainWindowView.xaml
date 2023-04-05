@@ -18,7 +18,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Width="100">
+            <Button Width="100"
+                    Command="{Binding StartServerCommand}">
                 <StackPanel Orientation="Horizontal">
                     <micons:PackIconForkAwesome Kind="Play" Foreground="LightGreen" VerticalAlignment="Center"/>
                     <TextBlock Text="Start" 
