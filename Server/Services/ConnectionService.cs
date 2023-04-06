@@ -5,8 +5,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Windows;
-using System.Windows.Threading;
 
 namespace Server.Services
 {
@@ -60,6 +58,7 @@ namespace Server.Services
                     newThread.Start();
 
                     newClient.SocketThread = newThread;
+                    Clients.Add(newClient);
                 }
                 catch (Exception ex)
                 {
