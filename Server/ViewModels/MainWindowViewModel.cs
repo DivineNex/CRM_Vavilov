@@ -1,6 +1,6 @@
 ﻿using Server.Commands;
 using Server.Services;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Server.ViewModels
 {
@@ -10,9 +10,9 @@ namespace Server.ViewModels
 
         public StartServerCommand StartServerCommand { get; private set; }
 
-        private List<string>? _loggerMessages;
+        private ObservableCollection<string>? _loggerMessages;
 
-        public List<string>? LoggerMessages
+        public ObservableCollection<string>? LoggerMessages
         {
             get { return _loggerMessages; }
             set { Set(ref _loggerMessages, value, nameof(LoggerMessages)); }
@@ -28,7 +28,7 @@ namespace Server.ViewModels
 
         private void LoggingService_OnMessageAdded()
         {
-            LoggerMessages = LoggingService.Messages;
+            LoggerMessages = new ObservableCollection<string>(LoggingService.Messages);
         }
     }
 }

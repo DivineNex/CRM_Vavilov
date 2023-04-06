@@ -93,7 +93,7 @@ namespace Server.Services
                 }
                 catch
                 {
-                    LoggingService.AddMessage($"Клиент {client.Port} отключен");
+                    LoggingService.AddMessage($"Клиент {client.IP_Port} отключен");
                     handler.Close();
                     Clients.Remove(client);
                     break;
