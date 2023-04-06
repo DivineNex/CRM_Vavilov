@@ -6,7 +6,7 @@ namespace Server.Models
     internal class Client
     {
         public Socket Socket { get; set; }
-        public int Port { get; set; }
+        public string IP_Port { get; set; }
         public Thread SocketThread { get; set; }
     }
 }

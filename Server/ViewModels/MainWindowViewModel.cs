@@ -10,7 +10,13 @@ namespace Server.ViewModels
 
         public StartServerCommand StartServerCommand { get; private set; }
 
-        public List<string>? LoggerMessages { get; private set; }
+        private List<string>? _loggerMessages;
+
+        public List<string>? LoggerMessages
+        {
+            get { return _loggerMessages; }
+            set { Set(ref _loggerMessages, value, nameof(LoggerMessages)); }
+        }
 
         public MainWindowViewModel()
         {
@@ -23,7 +29,6 @@ namespace Server.ViewModels
         private void LoggingService_OnMessageAdded()
         {
             LoggerMessages = LoggingService.Messages;
-            OnPropertyChanged(nameof(LoggerMessages));
         }
     }
 }

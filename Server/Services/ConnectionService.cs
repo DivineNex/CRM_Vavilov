@@ -1,11 +1,12 @@
-﻿using System.Threading;
+﻿using Server.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
-using System.Windows;
-using System.Collections.ObjectModel;
 using System.Text;
-using Server.Models;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace Server.Services
 {
@@ -16,16 +17,16 @@ namespace Server.Services
         private static IPEndPoint _ipPoint;
 
         public bool Active { get; private set; }
-        public static string IP { get; private set; }
-        public static int Port { get; private set; }
+        public static string Server_IP { get; private set; }
+        public static int Server_Port { get; private set; }
         public static ObservableCollection<Client> Clients { get; private set; }
 
         public ConnectionService(string ip, int port)
         {
-            IP = ip;
-            Port = port;
+            Server_IP = ip;
+            Server_Port = port;
 
-            _ipPoint = new IPEndPoint(IPAddress.Parse(IP), Port);
+            _ipPoint = new IPEndPoint(IPAddress.Parse(Server_IP), Server_Port);
             _listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Clients = new ObservableCollection<Client>();
         }
@@ -49,11 +50,10 @@ namespace Server.Services
                     _listenSocket.Listen(10);
 
                     Socket handler = _listenSocket.Accept();
-
                     LoggingService.AddMessage($"Клиент {handler.RemoteEndPoint} подключен");
 
                     Client newClient = new Client();
-                    newClient.Port = int.Parse(handler.RemoteEndPoint.ToString());
+                    newClient.IP_Port = handler.RemoteEndPoint.ToString();
                     newClient.Socket = handler;
 
                     Thread newThread = new Thread(() => SocketThread(handler, newClient));
