@@ -78,7 +78,11 @@ namespace Client.Services
                 }
                 catch
                 {
-                    LoggingService.AddMessage($"Соединение с сервером {_serverSocket.RemoteEndPoint} потеряно");
+                    try
+                    {
+                        LoggingService.AddMessage($"Соединение с сервером {_serverSocket.RemoteEndPoint} потеряно");
+                    }
+                    catch {}
                     Connected = false;
                     _serverSocket.Close();
                     break;

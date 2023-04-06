@@ -12,6 +12,9 @@
         <vms:MainWindowViewModel/>
     </mah:MetroWindow.DataContext>
     <Grid>
-        <Button Width="100" Height="100" Command="{Binding ConnectToServerCommand}"/>
+        <StackPanel Orientation="Horizontal">
+            <Button Width="100" Height="100" Command="{Binding ConnectToServerCommand}"/>
+            <Button Width="100" Height="100" Command="{Binding DisconnectFromServerCommand}" Margin="50"/>
+        </StackPanel>
     </Grid>
 </mah:MetroWindow>
