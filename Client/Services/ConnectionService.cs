@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace Client.Services
 {
@@ -111,8 +112,26 @@ namespace Client.Services
             {
                 return $"Сервер недоступен. Ошибка: {ex.Message}";
             }
+        }
 
+        public string SendAuthorizationMessage(string email, string password)
+        {
+            try
+            {
+                SendMessage($"{email}//{password}", eMessageType.Authorization);
 
+                while (true)
+                {
+                    if (AuthorizationStatus == "authorized")
+                        return "Авторизация прошла успешно";
+                    else if (AuthorizationStatus == "fail")
+                        return "Ошибка авторизации";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Сервер недоступен. Ошибка: {ex.Message}";
+            }
         }
 
         public void SendMessage(string message, eMessageType messageType)
@@ -127,6 +146,7 @@ namespace Client.Services
                     resultMessage = "reg//";
                     break;
                 case eMessageType.Authorization:
+                    resultMessage = "auth//";
                     break;
                 case eMessageType.Data_Update:
                     break;
