@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Other;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -10,7 +11,9 @@ namespace Client.Services
     {
         public string ServerIP { get; private set; }
         public int ServerPort { get; private set; }
-        public bool Connected { get; private set; }
+        public bool Connected { get; private set; } = false;
+        public string RegistrationStatus { get; private set; } = "";
+        public string AuthorizationStatus { get; private set; } = "";
 
         private IPEndPoint _ipPoint;
         private Socket _serverSocket;
@@ -88,6 +91,50 @@ namespace Client.Services
                     break;
                 }
             }
+        }
+
+        public string SendRegistrationMessage(string name, string email, string password)
+        {
+            try
+            {
+                SendMessage($"{name}//{email}//{password}", eMessageType.Registration);
+
+                while (true)
+                {
+                    if (RegistrationStatus == "registrated")
+                        return "Регистрация прошла успешно";
+                    else if (RegistrationStatus == "fail")
+                        return "Данная почта занята";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Сервер недоступен. Ошибка: {ex.Message}";
+            }
+
+
+        }
+
+        public void SendMessage(string message, eMessageType messageType)
+        {
+            var resultMessage = string.Empty;
+
+            switch (messageType)
+            {
+                case eMessageType.Initialization:
+                    break;
+                case eMessageType.Registration:
+                    resultMessage = "reg//";
+                    break;
+                case eMessageType.Authorization:
+                    break;
+                case eMessageType.Data_Update:
+                    break;
+            }
+
+            resultMessage += message;
+            byte[] data = Encoding.Unicode.GetBytes(resultMessage);
+            _serverSocket.Send(data);
         }
     }
 }
