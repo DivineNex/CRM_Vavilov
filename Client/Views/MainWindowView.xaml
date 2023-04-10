@@ -7,14 +7,22 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vms="clr-namespace:Client.ViewModels"
         mc:Ignorable="d"
-        Title="Client" Height="720" Width="1280">
+        Title="Client" Height="720" Width="1280"
+        WindowStartupLocation="CenterScreen">
     <mah:MetroWindow.DataContext>
         <vms:MainWindowViewModel/>
     </mah:MetroWindow.DataContext>
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <Button Width="100" Height="100" Command="{Binding ConnectToServerCommand}"/>
-            <Button Width="100" Height="100" Command="{Binding DisconnectFromServerCommand}" Margin="50"/>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <!--<Grid.Resources>
+                <DataTemplate>
+                    
+                </DataTemplate>
+            </Grid.Resources>-->
+        </Grid>
     </Grid>
 </mah:MetroWindow>
